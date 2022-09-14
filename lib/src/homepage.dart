@@ -8,13 +8,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<Exercise> exercises = <Exercise>[
-    Exercise(exerciseName: "Bench Press", targetMuscle: "chest"),
-    Exercise(exerciseName: "Chest Fly", targetMuscle: "chest"),
-    Exercise(exerciseName: "Regular Push Up", targetMuscle: "chest"),
-    Exercise(exerciseName: "Diamond Push Up", targetMuscle: "tricep"),
-    Exercise(exerciseName: "Overhead Extension", targetMuscle: "tricep"),
-  ];
+  int maxSets = 5;
+  int maxReps = 20;
+  List<Exercise> exercises = PopulateExercises();
   @override
   Widget build(BuildContext context) {
     return Scaffold(body: Sheet(), floatingActionButton: NewSheetButton());
@@ -26,9 +22,9 @@ class _HomePageState extends State<HomePage> {
           exercises.length,
           (int index) => ExerciseAsWidget(
               exercises[Random().nextInt(exercises.length)],
-              sets: (Random().nextInt(20).toString() +
+              sets: ((Random().nextInt(maxReps) + 1).toString() +
                   "x" +
-                  Random().nextInt(5).toString()))),
+                  (Random().nextInt(maxSets) + 1).toString()))),
       padding: const EdgeInsets.all(8),
     );
   }
@@ -49,3 +45,13 @@ Widget ExerciseAsWidget(Exercise exercise, {String sets = ""}) {
 }
 
 void GenerateSheet() {}
+
+List<Exercise> PopulateExercises() {
+  return <Exercise>[
+    Exercise("Bench Press", targetMuscle: "chest"),
+    Exercise("Chest Fly", targetMuscle: "chest"),
+    Exercise("Regular Push Up", targetMuscle: "chest"),
+    Exercise("Diamond Push Up", targetMuscle: "tricep"),
+    Exercise("Overhead Extension", targetMuscle: "tricep")
+  ];
+}
