@@ -52,6 +52,8 @@ List<Exercise> PopulateExercises() {
     Exercise("Chest Fly", targetMuscle: "chest"),
     Exercise("Regular Push Up", targetMuscle: "chest"),
     Exercise("Diamond Push Up", targetMuscle: "tricep"),
-    Exercise("Overhead Extension", targetMuscle: "tricep")
+    Exercise("Overhead Extension", targetMuscle: "tricep"),
+    Exercise("Overhead Press", targetMuscle: "shoulder"),
+    Exercise("Dumbbell Curl", targetMuscle: "bicep")
   ];
 }

@@ -1,16 +1,6 @@
 # training_genie
-
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+# What does it do?
+ It's a random training program generator, creating an exercise sheet based on certain parameters(such as desired muscle groups)
+# Why was it created?
+Inicially as a joke ideia; it's pourpose is to have a bit of fun, seeing what we can achieve with randomness in dart, while also providing training inspiration and knowledge
+# This project is not meant to replace a trained P.E. professional
