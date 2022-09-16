@@ -10,43 +10,44 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int maxSets = 5;
   int maxReps = 20;
-  List<Exercise> exercises = PopulateExercises();
+  int numberOfExercises = 6;
+  List<Exercise> exercises = populateExercises();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Sheet(), floatingActionButton: NewSheetButton());
+    return Scaffold(body: sheet(), floatingActionButton: newSheetButton());
   }
 
-  Widget Sheet() {
+  Widget sheet() {
+    String reps = (Random().nextInt(maxReps) + 1).toString();
+    String sets = (Random().nextInt(maxSets) + 1).toString();
     return ListView(
       children: List<Widget>.generate(
-          exercises.length,
-          (int index) => ExerciseAsWidget(
-              exercises[Random().nextInt(exercises.length)],
-              sets: ((Random().nextInt(maxReps) + 1).toString() +
-                  "x" +
-                  (Random().nextInt(maxSets) + 1).toString()))),
+          numberOfExercises,
+          (int index) => exerciseAsWidget(
+              exercises[Random().nextInt(exercises.length + 1)],
+              sets: (sets + "x" + reps))),
       padding: const EdgeInsets.all(8),
     );
   }
 
-  Widget NewSheetButton() {
+  Widget newSheetButton() {
     return IconButton(
         onPressed: (() {
           setState(() {
-            GenerateSheet();
+            generateSheet();
           });
         }),
-        icon: Icon(Icons.casino));
+        icon: const Icon(Icons.casino));
   }
 }
 
-Widget ExerciseAsWidget(Exercise exercise, {String sets = ""}) {
+Widget exerciseAsWidget(Exercise exercise, {String sets = ""}) {
   return Text(exercise.exerciseName + sets + exercise.targetMuscle);
 }
 
-void GenerateSheet() {}
+void generateSheet() {}
 
-List<Exercise> PopulateExercises() {
+List<Exercise> populateExercises() {
   return <Exercise>[
     Exercise("Bench Press", targetMuscle: "chest"),
     Exercise("Chest Fly", targetMuscle: "chest"),
