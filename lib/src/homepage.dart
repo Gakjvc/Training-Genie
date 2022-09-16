@@ -11,21 +11,20 @@ class _HomePageState extends State<HomePage> {
   int maxSets = 5;
   int maxReps = 20;
   int numberOfExercises = 6;
-  List<Exercise> exercises = populateExercises();
   @override
   Widget build(BuildContext context) {
     return Scaffold(body: sheet(), floatingActionButton: newSheetButton());
   }
 
   Widget sheet() {
+    List<Exercise> exercises = pickRandomExercises(numberOfExercises);
     String reps = (Random().nextInt(maxReps) + 1).toString();
     String sets = (Random().nextInt(maxSets) + 1).toString();
     return ListView(
       children: List<Widget>.generate(
           numberOfExercises,
-          (int index) => exerciseAsWidget(
-              exercises[Random().nextInt(exercises.length + 1)],
-              sets: (sets + "x" + reps))),
+          (int index) =>
+              exerciseAsWidget(exercises[index], sets: (sets + "x" + reps))),
       padding: const EdgeInsets.all(8),
     );
   }
@@ -47,6 +46,18 @@ Widget exerciseAsWidget(Exercise exercise, {String sets = ""}) {
 
 void generateSheet() {}
 
+List<Exercise> pickRandomExercises(int numberOfExercises) {
+  List<Exercise> exercises = populateExercises();
+  List<Exercise> pickedExercises = <Exercise>[];
+  for (var i = 0; i < numberOfExercises; i++) {
+    Exercise randomExercise = exercises[Random().nextInt(exercises.length)];
+    if (pickedExercises.contains(randomExercise) == false) {
+      pickedExercises.add(randomExercise);
+    }
+  }
+  return pickedExercises;
+}
+
 List<Exercise> populateExercises() {
   return <Exercise>[
     Exercise("Bench Press", targetMuscle: "chest"),
@@ -55,6 +66,7 @@ List<Exercise> populateExercises() {
     Exercise("Diamond Push Up", targetMuscle: "tricep"),
     Exercise("Overhead Extension", targetMuscle: "tricep"),
     Exercise("Overhead Press", targetMuscle: "shoulder"),
-    Exercise("Dumbbell Curl", targetMuscle: "bicep")
+    Exercise("Dumbbell Curl", targetMuscle: "bicep"),
+    Exercise("Squasts", targetMuscle: "leg"),
   ];
 }
