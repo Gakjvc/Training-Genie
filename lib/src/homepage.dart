@@ -18,13 +18,12 @@ class _HomePageState extends State<HomePage> {
 
   Widget sheet() {
     List<Exercise> exercises = pickRandomExercises(numberOfExercises);
-    String reps = (Random().nextInt(maxReps) + 1).toString();
-    String sets = (Random().nextInt(maxSets) + 1).toString();
     return ListView(
-      children: List<Widget>.generate(
-          numberOfExercises,
-          (int index) =>
-              exerciseAsWidget(exercises[index], sets: (sets + "x" + reps))),
+      children: List<Widget>.generate(numberOfExercises, (int index) {
+        String reps = (Random().nextInt(maxReps) + 1).toString();
+        String sets = (Random().nextInt(maxSets) + 1).toString();
+        return exerciseAsWidget(exercises[index], sets: (sets + "x" + reps));
+      }),
       padding: const EdgeInsets.all(8),
     );
   }
@@ -46,12 +45,20 @@ Widget exerciseAsWidget(Exercise exercise, {String sets = ""}) {
 
 void generateSheet() {}
 
-List<Exercise> pickRandomExercises(int numberOfExercises) {
+List<Exercise> pickRandomExercises(int numberOfExercises,
+    [String targetMuscle = ""]) {
   List<Exercise> exercises = populateExercises();
+  if (targetMuscle != "") {
+    for (var item in exercises) {
+      if (item.targetMuscle != targetMuscle) {
+        exercises.remove(item);
+      }
+    }
+  }
   List<Exercise> pickedExercises = <Exercise>[];
-  for (var i = 0; i < numberOfExercises; i++) {
+  while (pickedExercises.length < numberOfExercises) {
     Exercise randomExercise = exercises[Random().nextInt(exercises.length)];
-    if (pickedExercises.contains(randomExercise) == false) {
+    if (!pickedExercises.contains(randomExercise)) {
       pickedExercises.add(randomExercise);
     }
   }
