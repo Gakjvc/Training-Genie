@@ -1,5 +1,5 @@
 class Exercise {
-  String exerciseName = "Side raise";
-  String targetMuscle;
-  Exercise(exerciseName, {this.targetMuscle = "shoulder"});
+  final String exerciseName = "Side raise";
+  final String targetMuscle;
+  const Exercise(exerciseName, {this.targetMuscle = "shoulder"});
 }
