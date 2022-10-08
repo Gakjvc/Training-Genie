@@ -40,12 +40,10 @@ class _HomePageState extends State<HomePage> {
 }
 
 Widget exerciseAsWidget(Exercise exercise, {String sets = ""}) {
-  return Container(
-      child: Center(
-    heightFactor: 2,
-    child:
-        Text(exercise.exerciseName + " " + sets + " " + exercise.targetMuscle),
-  ));
+  return ListTile(
+    title: Text(exercise.exerciseName + " " + sets),
+    subtitle: Text(exercise.targetMuscle),
+  );
 }
 
 void generateSheet() {}
