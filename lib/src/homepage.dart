@@ -40,7 +40,12 @@ class _HomePageState extends State<HomePage> {
 }
 
 Widget exerciseAsWidget(Exercise exercise, {String sets = ""}) {
-  return Text(exercise.exerciseName + sets + exercise.targetMuscle);
+  return Container(
+      child: Center(
+    heightFactor: 2,
+    child:
+        Text(exercise.exerciseName + " " + sets + " " + exercise.targetMuscle),
+  ));
 }
 
 void generateSheet() {}
@@ -74,6 +79,6 @@ List<Exercise> populateExercises() {
     Exercise("Overhead Extension", targetMuscle: "tricep"),
     Exercise("Overhead Press", targetMuscle: "shoulder"),
     Exercise("Dumbbell Curl", targetMuscle: "bicep"),
-    Exercise("Squasts", targetMuscle: "leg"),
+    Exercise("Squats", targetMuscle: "leg"),
   ];
 }
