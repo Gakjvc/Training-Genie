@@ -13,7 +13,11 @@ class _HomePageState extends State<HomePage> {
   int numberOfExercises = 6;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: sheet(), floatingActionButton: newSheetButton());
+    return Scaffold(
+      body: sheet(),
+      floatingActionButton: newSheetButton(),
+      appBar: AppBar(),
+    );
   }
 
   Widget sheet() {
