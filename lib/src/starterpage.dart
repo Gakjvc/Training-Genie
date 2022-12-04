@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class StarterPage extends StatefulWidget {
   @override
@@ -7,10 +6,15 @@ class StarterPage extends StatefulWidget {
 }
 
 class _StarterPageState extends State<StarterPage> {
+  final mainTextController = TextEditingController();
   @override
-   Widget build(BuildContext context) {
+  Widget build(BuildContext context) {
     return Scaffold(
-      body:TextField(),
+      body: TextField(
+        controller: mainTextController,
+        textInputAction: TextInputAction.done,
+        decoration: const InputDecoration(hintText: 'Enter a muscle group...'),
+      ),
     );
   }
 }
