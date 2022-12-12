@@ -16,8 +16,56 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       body: sheet(),
       floatingActionButton: newSheetButton(),
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: targetMuscleField(),
+        leading: numberPicker(),
+      ),
     );
+  }
+
+  Widget testAppbar() {
+    return AppBar(
+      title: targetMuscleField(),
+      leading: numberPicker(),
+    );
+  }
+
+  Widget targetMuscleField() {
+    var items = ['Triceps', 'Chest', 'Biceps'];
+    String dropdownvalue = items[0];
+    return DropdownButton(
+        value: dropdownvalue,
+        icon: const Icon(Icons.keyboard_arrow_down),
+        items: items.map((String items) {
+          return DropdownMenuItem(
+            value: items,
+            child: Text(items),
+          );
+        }).toList(),
+        onChanged: (String? newValue) {
+          setState(() {
+            dropdownvalue = newValue!;
+          });
+        });
+  }
+
+  Widget numberPicker() {
+    var items = [1, 2, 3];
+    int dropdownvalue = items[0];
+    return DropdownButton(
+        value: dropdownvalue,
+        icon: const Icon(Icons.keyboard_arrow_down),
+        items: items.map((int items) {
+          return DropdownMenuItem(
+            value: items,
+            child: Text(items.toString()),
+          );
+        }).toList(),
+        onChanged: (int? newValue) {
+          setState(() {
+            dropdownvalue = newValue!;
+          });
+        });
   }
 
   Widget sheet() {
