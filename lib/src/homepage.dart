@@ -8,9 +8,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int maxSets = 5;
-  int maxReps = 20;
-  int numberOfExercises = 6;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,13 +27,13 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  var muscleGroups = ['', 'leg', 'triceps', 'chest', 'biceps', 'shoulder'];
+  String targetMuscleValue = '';
   Widget targetMuscleField() {
-    var items = ['Triceps', 'Chest', 'Biceps'];
-    String dropdownvalue = items[0];
     return DropdownButton(
-        value: dropdownvalue,
+        value: targetMuscleValue,
         icon: const Icon(Icons.keyboard_arrow_down),
-        items: items.map((String items) {
+        items: muscleGroups.map((String items) {
           return DropdownMenuItem(
             value: items,
             child: Text(items),
@@ -44,18 +41,18 @@ class _HomePageState extends State<HomePage> {
         }).toList(),
         onChanged: (String? newValue) {
           setState(() {
-            dropdownvalue = newValue!;
+            targetMuscleValue = newValue!;
           });
         });
   }
 
+  var numberOptions = [1, 2, 3, 4, 5, 6, 7, 8];
+  int numberOfExercises = 1;
   Widget numberPicker() {
-    var items = [1, 2, 3];
-    int dropdownvalue = items[0];
     return DropdownButton(
-        value: dropdownvalue,
+        value: numberOfExercises,
         icon: const Icon(Icons.keyboard_arrow_down),
-        items: items.map((int items) {
+        items: numberOptions.map((int items) {
           return DropdownMenuItem(
             value: items,
             child: Text(items.toString()),
@@ -63,13 +60,17 @@ class _HomePageState extends State<HomePage> {
         }).toList(),
         onChanged: (int? newValue) {
           setState(() {
-            dropdownvalue = newValue!;
+            numberOfExercises = newValue!;
           });
         });
   }
 
+  int maxSets = 5;
+  int maxReps = 20;
+
   Widget sheet() {
-    List<Exercise> exercises = pickRandomExercises(numberOfExercises);
+    List<Exercise> exercises =
+        pickRandomExercises(numberOfExercises, targetMuscleValue);
     return ListView(
       children: List<Widget>.generate(numberOfExercises, (int index) {
         String reps = (Random().nextInt(maxReps) + 1).toString();
@@ -104,10 +105,14 @@ List<Exercise> pickRandomExercises(int numberOfExercises,
     [String targetMuscle = ""]) {
   List<Exercise> exercises = populateExercises();
   if (targetMuscle != "") {
+    var toRemove = [];
     for (var item in exercises) {
       if (item.targetMuscle != targetMuscle) {
-        exercises.remove(item);
+        toRemove.add(item);
       }
+    }
+    for (var removable in toRemove) {
+      exercises.remove(removable);
     }
   }
   List<Exercise> pickedExercises = <Exercise>[];
