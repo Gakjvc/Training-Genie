@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  var muscleGroups = ['', 'leg', 'triceps', 'chest', 'biceps', 'shoulder'];
+  var muscleGroups = ['', 'leg', 'tricep', 'chest', 'bicep', 'shoulder'];
   String targetMuscleValue = '';
   Widget targetMuscleField() {
     return DropdownButton(
@@ -111,8 +111,12 @@ List<Exercise> pickRandomExercises(int numberOfExercises,
         toRemove.add(item);
       }
     }
-    for (var removable in toRemove) {
-      exercises.remove(removable);
+    if (exercises.length - toRemove.length <= numberOfExercises) {
+      numberOfExercises = exercises.length - toRemove.length;
+    } else {
+      for (var removable in toRemove) {
+        exercises.remove(removable);
+      }
     }
   }
   List<Exercise> pickedExercises = <Exercise>[];
@@ -129,9 +133,15 @@ List<Exercise> populateExercises() {
   return <Exercise>[
     Exercise("Bench Press", targetMuscle: "chest"),
     Exercise("Chest Fly", targetMuscle: "chest"),
+    Exercise("Incline Bench Press", targetMuscle: "chest"),
+    Exercise("Cable Chest Fly", targetMuscle: "chest"),
+    Exercise("Regular Push Up", targetMuscle: "chest"),
     Exercise("Regular Push Up", targetMuscle: "chest"),
     Exercise("Diamond Push Up", targetMuscle: "tricep"),
     Exercise("Overhead Extension", targetMuscle: "tricep"),
+    Exercise("Skull Crusher", targetMuscle: "tricep"),
+    Exercise("Pushdown", targetMuscle: "tricep"),
+    Exercise("Rope Pushdown", targetMuscle: "tricep"),
     Exercise("Overhead Press", targetMuscle: "shoulder"),
     Exercise("Dumbbell Curl", targetMuscle: "bicep"),
     Exercise("Squats", targetMuscle: "leg"),
